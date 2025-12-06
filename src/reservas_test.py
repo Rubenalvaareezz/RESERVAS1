@@ -41,3 +41,6 @@ if __name__ == "__main__":
 #APARTADO 4
     res = cliente_mayor_facturacion(reservas, {"Spa"})
     print(res)
+    
+    res = servicios_estrella_por_mes(reservas, None)
+    print(res)

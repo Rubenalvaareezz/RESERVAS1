@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import Counter, defaultdict
 from typing import NamedTuple
 from datetime import date, datetime
 import csv
@@ -81,3 +81,20 @@ def cliente_mayor_facturacion(reservas: list[Reserva], servicios: set[str] | Non
         
 def total_facturacion(reserva:Reserva) -> float:
     return reserva.precio_noche* (reserva.fecha_salida-reserva.fecha_entrada).days           
+
+
+def servicios_estrella_por_mes(reservas: list[Reserva], 
+                               tipos_habitacion: set[str] | None = None ) -> dict[str, str]:
+    dict1 = defaultdict(list)
+    
+    for e in reservas:
+        if e.tipo_habitacion == None:
+            dict1[e.fecha_entrada.strftime("%B")] == servicio_mas_solicitado(reservas)
+        if e.tipo_habitacion == tipos_habitacion:    
+            dict1[e.fecha_entrada.strftime("%B")] == servicio_mas_solicitado(reservas)
+    return dict1
+            
+def servicio_mas_solicitado(reserva:list[Reserva])->str:
+    conteo = Counter(e.servicios_adicionales for e in reserva)
+    return max(conteo.items(), key = lambda t: t[1] )[0]
+
